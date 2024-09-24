@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover UF: A Gator's Guide To Exploring Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --creamsicle-orange: #FF9966;
+            --pastel-blue: #A7C7E7;
+            --dark-bg: #121212;
+            --light-text: #e0e0e0;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+        .header {
+            background-color: rgba(30, 30, 30, 0.8);
+            color: var(--creamsicle-orange);
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        .content {
+            padding-top: 80px;
+        }
+        .intro, .location {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+        .intro {
+            background-image: url('intro.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .intro-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        .intro h2, .location h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--creamsicle-orange);
+            margin-bottom: 20px;
+        }
+        .intro p, .location p {
+            max-width: 800px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        .intro p {
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        .location:nth-child(odd) {
+            background-color: #1e1e1e;
+        }
+        .location:nth-child(even) {
+            background-color: #242424;
+        }
+        .location-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .location img {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.1),
+                0 1px 3px rgba(0,0,0,0.08);
+        }
+        .nav-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            background-color: var(--creamsicle-orange);
+            color: var(--dark-bg);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .nav {
+            position: fixed;
+            bottom: 80px;
+            right: -300px;
+            width: 300px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            background-color: rgba(30, 30, 30, 0.95);
+            padding: 20px;
+            box-sizing: border-box;
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+            border-radius: 10px 0 0 10px;
+        }
+        .nav.open {
+            right: 0;
+        }
+        .nav-btn {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            color: var(--light-text);
+            border: none;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: left;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+        .nav-btn:hover {
+            background-color: var(--creamsicle-orange);
+            color: var(--dark-bg);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .social-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: var(--creamsicle-orange);
+            color: var(--dark-bg);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            font-size: 16px; /* Adjust font size for better fit */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+        .social-button:hover {
+            background-color: var(--pastel-blue);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Discover UF: A Gator's Guide To Exploring Campus</h1>
+    </header>
+    
+    <button id="navToggle" class="nav-toggle">☰</button>
+    
+    <nav id="nav" class="nav">
+        <button class="nav-btn" onclick="scrollToElement('intro')">Intro</button>
+        <button class="nav-btn" onclick="scrollToElement('plaza')">Plaza of the Americas</button>
+        <button class="nav-btn" onclick="scrollToElement('rec')">Southwest Rec Center</button>
+        <button class="nav-btn" onclick="scrollToElement('lake')">Lake Alice Trail</button>
+        <button class="nav-btn" onclick="scrollToElement('reitz')">Reitz Union</button>
+    </nav>
+    
+    <div class="content">
+        <section id="intro" class="intro">
+            <div class="intro-content">
+                <h2>Welcome to the University of Florida</h2>
+                <p>Are you an incoming gator or a visitor strolling through campus? Get ready for an adventure through locations considered the heart of University of Florida. Prepare for a brief and peaceful online tour of the campus' four iconic locations. From serene study havens to bustling recreation centers, you're about to discover why it's great to be a gator at the University of Florida. Let's explore the best of UF!</p>
+            </div>
+        </section>
+
+        <section id="plaza" class="location">
+            <div class="location-content">
+                <img src="plaza.jpg" alt="Plaza of the Americas">
+                <h2>I. Plaza of the Americas</h2>
+                <p>The first stop is the Plaza of Americas, the active abode of academic life at UF. This is a sprawling green space, with laurel oak trees covering benches. On any given day you might stumble upon a lively student organization fair, students studying in hammocks, or doing homework on benches. During the hazy afternoons, sunshine beams through the weeping oak trees, creating a scenic vibe to the whole area. It has been a focal point for students since 1925. Surrounding the Plaza of Americas are lecture halls and the notable Library West. With a coffee shop and multiple study rooms, the plaza can be viewed as the "outdoor" library.</p>
+                <p>The Plaza of Americas is known for hosting communal events. Getting students involved and a part of campus culture is essential to being a gator. From the student organization fairs to group yoga, and musical performances, there is something for everyone at the Plaza of Americas. As you stroll through this location, you can see cultural events like "Krishna Lunch" occurring. This is a beloved UF tradition where savory vegetarian meals have fueled students' academic pursuits while promoting diversity. Whether you want to get involved on campus or explore the diversity on campus, the Plaza of Americas does not disappoint.</p>
+                <div class="social-links">
+                    <a href="https://facilities.ufl.edu/campus-planning/historic-campus/significant-buildings-and-sites/plaza-of-the-americas/" class="social-button">WEBSITE</a>
+                    <a href="https://www.instagram.com/ufplaza/" class="social-button">INSTAGRAM</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="rec" class="location">
+            <div class="location-content">
+                <img src="southwest.jpg" alt="Southwest Rec Center">
+                <h2>II. Southwest Recreation Center</h2>
+                <p>Are you looking to relieve some stress or get active with friends? Get ready to break a sweat at the Southwest Recreation Center. This is the university's massive 140,000-square-foot recreational facility where students can develop and progress their health and wellness. Walking inside, you are greeted by the center's personable and vibrant staff. While you walk in, you are greeted by an upstairs track, a huge lifting area, and multiple basketball courts. Students are found playing pick-up games, setting up pickleball courts, or hosting an event for a club.</p>
+                <p>Speaking of group activities, there are also multiple fitness rooms. Instructor-led cycling classes or Ju-Jitsu sparring can occur in these locations. These are activities for students and friends to get their sweat on and be active together.</p>
+                <p>For those who want to sweat outside of the center, there are amenities located outside including beach volleyball courts and multiple tennis courts. Whether you find yourself indoors lifting or outside playing a competitive match of tennis, the Southwest Recreation Center is a cornerstone of the UF experience. It is the pinnacle location where students are building and promoting an active, healthy lifestyle that will serve them well beyond their college years.</p>
+                <div class="social-links">
+                    <a href="https://recsports.ufl.edu/locations/southwest-recreation-center/" class="social-button">WEBSITE</a>
+                    <a href="https://www.instagram.com/ufrecsports/?hl=en" class="social-button">INSTAGRAM</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="lake" class="location">
+            <div class="location-content">
+                <img src="alice.jpg" alt="Lake Alice Trail">
+                <h2>III. Lake Alice Trail</h2>
+                <p>Right "behind" the Southwest Recreation Center is scenic Lake Alice. This location is a serene oasis tucked away on campus. Lake Alice is a 97-acre conversation area and is a testament to the natural habitat and biodiversity in the area. As you enter the trail, the bustling energy starts to fade as nature embraces the surroundings. The diverse ecosystem means everything from turtles, panfish, and even birds can be spotted throughout the brush and water. Lucky travelers might even stumble upon a gator! Don't be worried, these alligators are more interested in sunning on the shoreline than interacting with travelers. At dusk, students also group up to watch a swarm of bats flood into the night sky.</p>
+                <p>The trail also offers benches and more areas for students to study in nature. Like the Plaza of Americas, it is also not unusual to find students in hammocks that overlook the lake. The benches provide adequate shade and a perfect spot to cram for finals. Whether you are looking for a peaceful nature walk or a relaxing study session, Lake Alice provides a much-needed sanctuary for students. So, take a deep breath, slow down, and let the tranquility of Lake Alice rejuvenate your day.</p>
+                <div class="social-links">
+                    <a href="https://soils.ifas.ufl.edu/campuswaterquality/water/lake-alice.shtml" class="social-button">WEBSITE</a>
+                    <a href="https://www.instagram.com/explore/locations/702442510/lake-alice-university-of-florida/" class="social-button">INSTAGRAM</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="reitz" class="location">
+            <div class="location-content">
+                <img src="reitz.jpg" alt="Reitz Union">
+                <h2>IV. Reitz Union</h2>
+                <p>Step into the J. Wayne Reiz Union (or "The Reitz"), the hub for student life and involvement here at the university. This location was renovated to have a modern, some even say inspiring, aesthetic. The Reitz is a student hub where gators come together to dine, study, and socialize at the university.</p>
+                <p>Upon arrival, you are greeted with a wave of bustling energy. In the background, you can smell the food court and hear students chatting about the day. The food court boasts an array of dining options from Panda Express to Starbucks. Closer in the field of view are varying study areas. It is not uncommon to find students laid out studying on the stairs or sitting in lounge chairs. Depending on the day, student organizations may host fairs and sometimes the infamous "Poster Sale". With so many organizations on campus, any incoming student will find their crowd at the Reitz.</p>
+                <p>Ditch the grind and relax. The Reitz also has entertainment. For example, there is a bowling alley and billiards room located on the bottom floor. Need gator merchandise? The bookstore has inventory from gator shirts to back-to-school needs. Overall, The Reitz can be a hub for students to get a good meal, get involved on campus, and kick back after a long day or stressful test. Many regard it as the "soul" of student life on campus.</p>
+                <div class="social-links">
+                    <a href="https://union.ufl.edu/" class="social-button">WEBSITE</a>
+                    <a href="https://www.instagram.com/reitzunion/?hl=en" class="social-button">INSTAGRAM</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function scrollToElement(id) {
+            const element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth' });
+            toggleNav(); // Close the nav after clicking a link
+        }
+
+        const nav = document.getElementById('nav');
+        const navToggle = document.getElementById('navToggle');
+
+        function toggleNav() {
+            nav.classList.toggle('open');
+            navToggle.textContent = nav.classList.contains('open') ? '×' : '☰';
+        }
+
+        navToggle.addEventListener('click', toggleNav);
+    </script>
+    <footer style="background-color: rgba(30, 30, 30, 0.8); color: var(--light-text); text-align: center; padding: 20px; position: relative; bottom: 0; width: 100%; box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);">
+        <p>Made By Andrew Hunter - andrewhunter@ufl.edu</p>
+    </footer>
+</body>
+</html>
