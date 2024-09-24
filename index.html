@@ -20,6 +20,20 @@
             background-color: var(--dark-bg);
             color: var(--light-text);
         }
+        @keyframes ripple {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ripple {
+            animation: ripple 1s ease-out forwards;
+        }
         .header {
             background-color: rgba(30, 30, 30, 0.8);
             color: var(--creamsicle-orange);
@@ -39,6 +53,9 @@
             padding-top: 80px;
         }
         .intro, .location {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -185,6 +202,30 @@
         .social-button:hover {
             background-color: var(--pastel-blue);
         }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes ripple {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ripple {
+            animation: ripple 1s ease-out forwards;
+        }
     </style>
 </head>
 <body>
@@ -269,19 +310,49 @@
         function scrollToElement(id) {
             const element = document.getElementById(id);
             element.scrollIntoView({ behavior: 'smooth' });
-            toggleNav(); // Close the nav after clicking a link
+            toggleNav();
         }
-
+    
         const nav = document.getElementById('nav');
         const navToggle = document.getElementById('navToggle');
-
+    
         function toggleNav() {
             nav.classList.toggle('open');
             navToggle.textContent = nav.classList.contains('open') ? '×' : '☰';
         }
-
+    
         navToggle.addEventListener('click', toggleNav);
+    
+        // Parallax, fade-in, and ripple effect
+        function handleScroll() {
+            const scrollPosition = window.pageYOffset;
+    
+            document.querySelectorAll('.location, .intro').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+    
+                if (scrollPosition > sectionTop - window.innerHeight && scrollPosition < sectionTop + sectionHeight) {
+                    const img = section.querySelector('img');
+                    const title = section.querySelector('h2');
+                    const content = section.querySelector('p');
+    
+                    if (img && !img.classList.contains('ripple')) {
+                        img.classList.add('ripple');
+                    }
+                    if (title && !title.classList.contains('ripple')) {
+                        title.classList.add('ripple');
+                    }
+                    if (content && !content.classList.contains('ripple')) {
+                        content.classList.add('ripple');
+                    }
+                }
+            });
+        }
+    
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Call once to set initial state
     </script>
+    
     <footer style="background-color: rgba(30, 30, 30, 0.8); color: var(--light-text); text-align: center; padding: 20px; position: relative; bottom: 0; width: 100%; box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);">
         <p>Made By Andrew Hunter - andrewhunter@ufl.edu</p>
     </footer>
